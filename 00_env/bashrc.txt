@@ -35,6 +35,7 @@ alias c="clear"
 alias df='df -hT'
 alias chrome='/usr/bin/google-chrome --no-sandbox'
 #source ~/.local/share/blesh/ble.sh
+
 #
 # rsync Alias
 #
@@ -87,3 +88,21 @@ alias smb.conf='vi /etc/samba/smb.conf'
 alias SMB='cd /etc/samba'
 alias smblog='tail -f /var/log/samba/log.smbd'
 alias nmblog='tail -f /var/log/samba/log.nmbd'
+
+#
+# WEB Server Alias
+#
+alias WEB='cd /etc/httpd/conf'
+alias WWW='cd /var/www/html'
+alias httpd.conf='vi /etc/httpd/conf/httpd.conf'
+alias wlog='tail -f /etc/httpd/logs/access_log'
+alias welog='tail -f /etc/httpd/logs/error_log'
+
+
+#
+# Mail Server Alias
+#
+alias MAIL='cd /etc/postfix'
+alias main.cf='vi /etc/postfix/main.cf'
+alias maillog='tail -f /var/log/maillog'
+
