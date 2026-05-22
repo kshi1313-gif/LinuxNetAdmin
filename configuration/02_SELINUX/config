@@ -20,11 +20,11 @@
 #    grubby --update-kernel ALL --remove-args selinux
 #
 # ex) enforcing, permissive, disabled
-SELINUX=permissive
+#SELINUX=permissive
 # SELINUXTYPE= can take one of these three values:
 #     targeted - Targeted processes are protected,
 #     minimum - Modification of targeted policy. Only selected processes are protected.
 #     mls - Multi Level Security protection.
-SELINUXTYPE=targeted
+#SELINUXTYPE=targeted
 
 
