@@ -55,3 +55,8 @@ UUID=f4869e6f-7d59-47fe-8ecb-b81aa0d95924 /boot                   xfs     defaul
 # (6) SMB configuration
 #
 #//192.168.10.202/samba_share	/mnt/server		cifs	credentials=/root/cred	0	0
+#
+# (7) NFS Test
+#
+#server1:/shares/data			/mnt/nfs		nfs		defaults			0	0
+#192.168.10.10:/shares/data		/mnt/nfs		nfs		defaults,nfsvers=4	0	0
