@@ -1,74 +1,54 @@
-Script 파일 제작 심화 과정
+# Advenced Scripts
 
-* 1. add_dir.sh
-* **기능**: 반복구문 중첩하여 여러개의 디렉토리안에 여러개의 디렉토리를 만드는 스크립트를 제작 
-* **구현**: /test DIR 안 1,2,3,4 DIR 생성 후 각각의 DIR 안에 다시 1,2,3,4 DIR 생성
+사용자 관리, 파일 전송, 네트워크 점검, 환경 설정, 웹 서비스 실행처럼 실제 관리 작업에 가까운 Bash 스크립트 모음입니다. 디렉토리명은 저장소의 기존 이름인 `Advenced`를 그대로 유지했습니다.
 
-* 2. calculator_ver2.sh
-* **기능**: 한개의 숫자, 연산기호, 다른 한개의 숫자 입력 후 연산하는 프로그램
-* **구현**: 1번째 숫자 입력 / 연산자 입력 / 2번째 숫자 입력 -> 결과 출력
+## 주요 파일
 
-* 3. hosts.sh
-* 기능 : /etc/hosts 파일에 여러개의 서버 정보 입력
-* 구현 : 개별적으로 백업파일 생성 후 실행 <IP><Hostname><Alias> 등록
+| 파일 | 설명 |
+| --- | --- |
+| `add_dir.sh` | `/test` 아래에 반복문으로 다단계 디렉토리 구조를 생성하고 `tree`로 확인합니다. |
+| `calculator_ver2.sh` | 숫자 두 개와 연산자를 입력받아 사칙연산을 수행하는 `case`문 예제입니다. |
+| `hosts.sh` | 지정한 IP 대역의 호스트 정보를 `/root/bin/hosts` 형식으로 생성합니다. |
+| `add_userlist.sh` | `user1 user1` 형태의 사용자/비밀번호 목록을 `/root/bin/user.list`에 생성합니다. |
+| `useradd.sh` | `user.list`를 읽어 여러 사용자를 생성하고 비밀번호를 설정합니다. |
+| `userdel.sh` | `user.list`에 있는 사용자를 홈 디렉토리까지 함께 삭제합니다. |
+| `user_admin.sh` | 터미널 메뉴로 사용자 추가, 확인, 삭제를 수행합니다. |
+| `user_manage_dialog.sh` | `dialog` 기반의 사용자 관리 TUI입니다. 사용자 추가, 조회, 삭제, 로그 확인 기능을 포함합니다. |
+| `ping.sh` | 지정한 IP 대역을 ping으로 확인하고 결과를 자리 배치 파일과 함께 출력합니다. |
+| `ping1.sh` | 지정한 IP 대역에 대해 간단한 ping 성공/실패 결과를 출력합니다. |
+| `check_network.sh` | 내부 게이트웨이, 외부 IP, DNS 이름 확인을 단계별로 점검합니다. |
+| `ipconfig2.sh` | `nmcli` 기반으로 호스트명, NIC, IP, 게이트웨이, DNS 정보를 출력합니다. |
+| `auto_ftp.sh` | FTP here document를 이용해 로컬 파일을 자동 업로드합니다. |
+| `auto_ftp_windows.sh` | Linux에서 Windows FTP 서버로 파일을 업로드합니다. |
+| `auto_ftp_windows_dialog.sh` | `dialog` 입력 화면으로 FTP 서버, 계정, 파일 경로를 받아 업로드합니다. |
+| `ftp_send.sh` | 여러 대상 IP에 동일한 파일을 FTP로 전송합니다. |
+| `auto_telnet.sh` | Telnet 접속 후 사용자명, 비밀번호, 명령을 자동 입력하는 예제입니다. |
+| `auto_telnet2.sh` | `server.list`를 읽어 여러 서버의 Telnet 로그인을 `expect`로 테스트합니다. |
+| `auto_telnet_ftp.sh` | Telnet 접속 후 백업 명령을 자동 입력하기 위한 실험용 스크립트입니다. |
+| `move_filename.sh` | `/test`의 `.txt` 파일을 `.els` 확장자로 변경합니다. |
+| `move_filename.2.sh` | 지정한 디렉토리에서 `.els` 파일을 `.txt`로 변경합니다. |
+| `move_filename3.sh` | 디렉토리와 변경 전/후 확장자를 인자로 받아 재귀적으로 파일명을 변경합니다. |
+| `ENV1.sh` | Apache HTTPD와 SSL 관련 패키지 설치, 테스트 index 파일 생성, 서비스 기동을 수행합니다. |
+| `ENV2.sh` | 사용자 `.bashrc`, `.vimrc`에 alias, 프롬프트, vim 설정을 추가합니다. |
+| `ENV3.sh` | `gnome-tweaks`, `epel-release`, `boxes`, `cowsay` 같은 부가 패키지를 설치합니다. |
+| `ENV_main.sh` | `ENV1.sh`, `ENV2.sh`, `ENV3.sh`를 순서대로 실행합니다. |
+| `functions.sh` | 공통 변수와 색상 출력 함수(`print_good`, `print_error`, `print_info`)를 정의합니다. |
+| `poweroff.sh` | `server1`, `server2`에 SSH로 접속해 전원 종료를 실행합니다. |
+| `poweroff2.sh` | `sshpass`를 사용해 서버 전원 종료를 자동화합니다. |
+| `webserver.sh` | Apache HTTPD 또는 Nginx 중 하나를 선택해 설치, 기동, 테스트 페이지 생성, 상태 확인을 수행합니다. |
 
-* 4. useradd.sh
-* **기능**: user.list 파일을 입력받아 대량의 사용자 추가
-* **구현**: user.list 파일에 등록된 사용자 이름과 암호를 활용하기에 생성 필요
+## 실행 전 확인
 
-* 5. add_userlist.sh
-* **기능**: user.list 파일에 대량의 사용자를 넣을 수 있는 스크립트
-* **구현**: user.list 파일의 사용자 이름과 암호의 쌍으로 이루어진 내용 입력
+- 사용자 관리 스크립트는 실제 계정을 생성하거나 삭제합니다.
+- FTP/Telnet 스크립트에는 실습용 IP, 계정, 비밀번호가 들어 있으므로 실행 전에 환경에 맞게 수정하세요.
+- `poweroff.sh`, `poweroff2.sh`는 원격 서버를 종료합니다. 테스트 환경에서만 신중하게 실행하세요.
+- `webserver.sh`, `ENV*.sh`는 패키지 설치와 서비스 상태 변경을 수행하므로 `root` 권한이 필요합니다.
 
-* 6. user_admin.sh
-* **기능**: 사용자 관리 종합 툴
-* **구현**: 초기 실행시 사용자 관리를 위한 목록과 관리 번호 출력 메뉴얼대로 사용자 관리 가능
+## 예시
 
-* 7. userdel.sh
-* **기능**: user.list 파일에 입력되어 있는 사용자를 제거하는 스크립트
-
-* 8. user_manage_dialog.sh
-* **기능**: 사용자 관리 종합 툴의 dialog 버전
-* **구현**: 사용자 관리 툴과 동일한 기능이나 더욱 시각화되어 있는 종합 툴 
-
-* 9. ping.sh
-* **기능**: ping 테스트를 대량의 IP를 이용
-* **구현**: 스크립트 내 IP 범위를 정해서 사용하면 원하는 대역의 IP로 통신 확인 가능
-
-* 10. auto_ftp2.sh
-* **기능**: 다중 서버에 대해 파일을 업로드 할 수 있는 기능
-* **구현**:
-
-* 11. auto_telnet2.sh
-* **기능**: 원격서버 자동 명령어 수행 스크립트 
-* **구현**:
-
-* 12. auto_telnet_ftp.sh (auto_telnet.sh + auto_ftp.sh)
-* **기능**: 원격 서버에 로그인 후 백업 및 백업 파일 자동 다운로드
-* **구현**:
-
-* 13. auto_ftp_windows.sh
-* **기능**: 윈도우 FTP 서버에 파일 자동 업로드
-* **구현**:
-
-* 14. move_filename3.sh
-* **기능**: 파일이름 자동 변환
-* **구현**:
-
-* 15. ENV_main.sh
-* **기능**: 환경 설정
-* **구현**:
-
-* 16.ping.sh
-* **기능**: ping 테스트
-* **구현**:
-
-* 17.check_network.sh
-* **기능**: 네트워크 점검
-* **구현**:
-
-* 18. ipconfig.sh
-* **기능**:네트워크 설정 확인 프로그램
-* **구현**:
-
-
+```bash
+sudo ./useradd.sh
+./check_network.sh
+sudo ./webserver.sh httpd
+sudo ./webserver.sh status
+```
